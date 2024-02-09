@@ -1,0 +1,22 @@
+/* TopBar.css */
+.top-bar {
+    height: 100px; /* Set the height of the top bar */
+    background-color: rgb(242, 242, 242); /* White background */
+    color: black; /* Black text color */
+    display: flex;
+    align-items: center; /* Vertically center the title */
+    justify-content: center; /* Horizontally center the title */
+    border-bottom: 1px solid rgb(177, 177, 177); /* Black line at the bottom */
+    width: 90%; /* Ensure it spans the full width */
+    position: fixed; /* Fix it to the top */
+    margin-left: 240px;
+    left: 0;
+    top: 0;
+    z-index: 100; /* Make sure it stays on top of other content */
+}
+
+
+.top-bar-title {
+    font-size: 30px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}

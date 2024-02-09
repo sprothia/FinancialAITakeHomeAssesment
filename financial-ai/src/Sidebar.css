@@ -1,0 +1,47 @@
+/* Sidebar.css */
+.sidebar {
+    height: 100vh; /* Full height */
+    width: 220px; /* Width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #2e70b1; /* Professional blue */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    font-family: 'Arial', sans-serif; /* Elegant font */
+    padding-left: 20px;
+}
+
+.sidebar-button {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white; /* White text color */
+    background-color: transparent; /* Transparent background */
+    border: none;
+    text-align: left;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: block;
+    margin-bottom: 10px;
+    width: 80%;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    padding-right: 5px;
+    transition: border-radius 0.5s ease;
+}
+
+.sidebar-button:hover {
+    background-color: #162c41; /* Slightly darker blue on hover */
+    border-radius: 16px; /* Adjust as needed */
+    
+}
+
+.sidebar-title {
+    font-family: 'Avenir';
+    font-size: 25px; /* Adjust as needed */
+    font-weight: bold;
+    color: white; /* Or any color you prefer */
+    text-align: center; /* Center the title */
+    margin-top: 10px; /* Adjust top margin as needed */
+    margin-bottom: 20px; /* Space before the button */
+}
