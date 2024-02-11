@@ -40,6 +40,6 @@ This application allows users to upload financial statements in PDF format. It t
 
 ## Authors :pen:
 
-- Siddharth Prothia - [YourGitHub](https://github.com/sprothia)
+- Siddharth Prothia
 
 
