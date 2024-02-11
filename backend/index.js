@@ -3,7 +3,6 @@ const cors = require("cors");
 const app = express();
 const multer = require("multer");
 const pdf = require("pdf-parse");
-const mongoose = require("mongoose");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,14 +14,6 @@ const upload = multer({ storage: storage });
 
 let storedText = '';
 // "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"})
-
-// const mongoDBURL = "mongodb+srv://sprothia935:bifurc8@financialdataanalyzer.3e8j5jq.mongodb.net/financial-collection?retryWrites=true&w=majority";
-
-// mongoose.connect(mongoDBURL, {useNewUrlParser: true}).then(() => {
-//     console.log('Connected to Database')
-// }).catch((error) => {
-//     console.log(`Issue connecting to MongoDB ${error}`)
-// });
 
 // EXTRACT TEXT FROM PDF
 app.post('/api/text/upload', upload.single('pdf'), async (req, res) => {

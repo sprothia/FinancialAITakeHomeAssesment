@@ -6,18 +6,18 @@ const Tile = ({ title, value }) => {
         width: '200px', // Fixed width
         height: '150px', // Fixed height
         border: '1px solid #ddd',
-        borderRadius: '8px',
+        borderRadius: '12px',
         padding: '20px',
         margin: '10px',
         textAlign: 'center',
         backgroundColor: '#e8e8e8', // Changed background color
         color: '#333', // Changed text color
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0px 0px 10px rgba(1, 4, 3, 0.8)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        overflow: 'hidden' // Added to handle overflowing content
+        overflow: 'hidden' // Added to handle overflowing content,
       }}>
         <h2 style={{
           fontWeight: 'bold',

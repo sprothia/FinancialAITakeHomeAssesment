@@ -31,13 +31,25 @@ const FinancialDataDisplay = ({ financialDataJSON, typeOfStatement }) => {
                 flexWrap: 'wrap', 
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginLeft: '150px'
+                marginLeft: '150px',
+                marginBottom: '350px',
+
             }}>
                 {financialMetricTiles}
             </div>
             
-            <div style={{ marginBottom: '-380px', color: 'black', marginLeft: '50px',fontSize: '15px'}}>
-                <h3>Insights</h3>
+            <div style={{
+                    color: 'black',
+                    marginLeft: '105px',
+                    marginTop: '-280px', 
+                    fontSize: '14px', 
+                    backgroundColor: '#f2f2f2',
+                    padding: '20px', 
+                    border: '6px solid #d9d9d9', 
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                    borderRadius: '30px',
+            }}>
+                <h1>Insights</h1>
                 <ul>
                     {Insights.map((insight, index) => (
                         <li key={index}>{insight}</li>

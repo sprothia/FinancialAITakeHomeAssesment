@@ -1,18 +1,23 @@
 import './App.css';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FinancialDataDisplay from './FinancialDataDisplay';
 import Spinner from './Spinner';
 import Sidebar from './Sidebar';
-import TopBar from './Topbar';
-
+import { storage } from './firebase';
+import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 const App = () => {
   const [file, setFile] = useState(null);
+  const[fileList, setFileList] = useState([]);
   const [text, setText] = useState('');
   const [financialtext, setFinancialText] = useState('');
   const [statementType, setStatementType] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState();
+  const [showUploadBar, setUploadBar] = useState(true);
+
+  const fileListRef = ref(storage, "files/");
 
 
   const handleStatementChange = (event) => {
@@ -25,7 +30,8 @@ const App = () => {
 
   const api = axios.create({
     baseURL: 'http://localhost:5174/'
-  })
+  });
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -35,6 +41,13 @@ const App = () => {
     formData.append('pdf', file);
 
     setIsLoading(true)
+    setUploadBar(false)
+
+    const fileRef = ref(storage, `files/${file.name + v4()}`) 
+    uploadBytes(fileRef, file).then(() => {
+      alert("File uploaded to database")
+      console.log("File uploaded to database")
+    });
 
     try {
       const response = await axios.post('http://localhost:5174/api/text/upload', formData, {
@@ -48,9 +61,8 @@ const App = () => {
       
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
+
   };  
 
   const sendExtractedText = async (text) => {
@@ -61,6 +73,16 @@ const App = () => {
       console.error(error);
     }
   }
+
+  const fetchFiles = () => {
+    listAll(fileListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setFileList((prev) => [...prev, url]);
+        });
+      });
+    });
+  };
 
   const getFinancialMetricText = async (financialText) => {
     try {
@@ -75,35 +97,41 @@ const App = () => {
       }
       const response = await axios.post(axiosLink, { text: financialText });
       setFinancialText(response.data.text);
+      setIsLoading(false)
       console.log(`Financial metric data ${response.data.text}`)
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Errorr:', error);
     }
   }
 
   return (
     <div>
-      <Sidebar />
+        <Sidebar />
 
-      <fieldset className="upload-fieldset">
-          <legend className='title-finance-doc'>Upload Financial Document</legend>
-          <label  className='title-finance-doc' htmlFor="file-upload">Upload PDF:</label>
-          <input className='title-finance-doc' id="file-upload" type="file" accept=".pdf" onChange={handleFileChange} />
+          <div> { showUploadBar ? (
+                      
+              <fieldset className="upload-fieldset">
+                  <legend className='title-finance-doc'>Upload Financial Document</legend>
+                  <label className='label-finance-doc' htmlFor="file-upload">Upload PDF:</label>
+                  <input className='input-finance-doc' id="file-upload" type="file" accept=".pdf" onChange={handleFileChange} />
 
-          <label className='title-finance-doc' htmlFor="statement-picker">Statement Type:</label>
-          <select id="statement-picker" value={statementType} onChange={handleStatementChange}>
-            <option value="">Select...</option>
-            <option value="income-statement">Income Statement</option>
-            <option value="balance-sheet">Balance Sheet</option>
-          </select>
+                  <label className='label-finance-doc' htmlFor="statement-picker">Statement Type:</label>
+                  <select className='select-finance-doc' id="statement-picker" value={statementType} onChange={handleStatementChange}>
+                    <option value="">Select...</option>
+                    <option value="income-statement">Income Statement</option>
+                    <option value="balance-sheet">Balance Sheet</option>
+                  </select>
 
-          <button onClick={handleSubmit}>Analyze</button>
-        </fieldset>
+                  <button className='btn-finance-doc' onClick={handleSubmit}>Analyze</button>
+            </fieldset>
+
+              ) : (
+                null
+              )}
+          </div>
+
  
       <div className="main-container">
-
-
-
         <div className="financial-info">
           {isLoading ? (
             <Spinner />
@@ -111,7 +139,7 @@ const App = () => {
             financialtext && <FinancialDataDisplay financialDataJSON={financialtext} typeOfStatement={statementType} />
           )}
         </div>
-        
+
       </div>
 
     </div>
