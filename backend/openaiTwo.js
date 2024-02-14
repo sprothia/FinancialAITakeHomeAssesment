@@ -1,7 +1,7 @@
 const OpenAI = require('openai').OpenAI
 const openai = new OpenAI({apiKey: "sk-"})
 
-// old key: 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
+// old key: sk-
 console.log('running')
 async function mainTwo(inputText) {
 
