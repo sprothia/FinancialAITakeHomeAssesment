@@ -1,5 +1,5 @@
 const OpenAI = require('openai').OpenAI
-const openai = new OpenAI({apiKey: "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"})
+const openai = new OpenAI({apiKey: "sk-"})
 
 console.log('running')
 async function main(inputText) {
